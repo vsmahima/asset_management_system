@@ -30,15 +30,31 @@ def index(request):
 #######NEW ASSET REGISTRATION ###############
 
 def asset_registration(request):
+
+    last_asset = AssetRegistration.objects.filter(assetId__startswith="AST").order_by('-assetId').first()
+
+    if last_asset:
+        last_number = int(last_asset.assetId.replace("AST", ""))
+        next_number = last_number + 1
+    else:
+        next_number = 1
+
+    next_asset_id = f"AST{next_number:03d}"
+
     if request.method == "POST":
         form = AssetRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            print("data saved successfully")
-        else:
-            print(form.errors)
+            asset = form.save(commit=False)
+
+            asset.assetId = next_asset_id
+            asset.save()
+            return redirect('asset_registration')
+            #print("data saved successfully")
     else:
-        form =AssetRegistrationForm()
+            
+        form = AssetRegistrationForm(initial={
+            'assetId': next_asset_id})
+ 
     return render(request,"asset_registration.html",{"form":form})
 
 ################################################

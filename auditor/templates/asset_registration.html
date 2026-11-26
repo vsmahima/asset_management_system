@@ -338,7 +338,7 @@ td {
                 <div class="form-group">
                     <label>Asset ID</label>
                     <input type="text" id="assetId"
-                        placeholder="Auto-generated" readonly name="assetId">
+                        value="{{ form.next_asset_id }}" readonly name="assetId">
                 </div>
 
                 <div class="form-group">
@@ -522,7 +522,7 @@ td {
 
 // Generate Asset ID
 
-function generateAssetId() {
+/*function generateAssetId() {
     const rows = document.querySelectorAll(
         "#assetTable tbody tr"
     );
@@ -537,7 +537,7 @@ function generateAssetId() {
     document.getElementById("assetId").value =
         "A" + String(maxId + 1).padStart(3, "0");
 }
-window.addEventListener("DOMContentLoaded",generateAssetId);
+window.addEventListener("DOMContentLoaded",generateAssetId);*/
 
 // Update Summary Cards
 
